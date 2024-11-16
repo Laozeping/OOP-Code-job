@@ -1,0 +1,41 @@
+// GeneralPractitioner.java
+
+public class GeneralPractitioner extends HealthProfessional {
+    private String specialization;
+
+    public GeneralPractitioner() {
+        // Default constructor
+    }
+
+    public GeneralPractitioner(int ID, String name, String basicInfo, String specialization) {
+        super(ID, name, basicInfo);
+        this.specialization = specialization;
+    }
+
+    @Override
+    public void printDetails() {
+        super.printDetails();
+        System.out.println("Specialization: " + specialization);
+    }
+}
+
+// AnotherHealthProfessional.java
+
+public class AnotherHealthProfessional extends HealthProfessional {
+    private String category;
+
+    public AnotherHealthProfessional() {
+        // Default constructor
+    }
+
+    public AnotherHealthProfessional(int ID, String name, String basicInfo, String category) {
+        super(ID, name, basicInfo);
+        this.category = category;
+    }
+
+    @Override
+    public void printDetails() {
+        super.printDetails();
+        System.out.println("Category: " + category);
+    }
+}

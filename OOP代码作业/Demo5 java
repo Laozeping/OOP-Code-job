@@ -1,0 +1,51 @@
+// MainApp.java continued...
+
+public class MainApp {
+    public static void main(String[] args) {
+        // Part 5 – Collection of appointments
+        System.out.println("// Part 5 – Collection of appointments");
+
+        ArrayList<Appointment> appointmentsList = new ArrayList<>();
+
+        createAppointment(appointmentsList, "John Doe", "555-1234", "10:00", gp1);
+        createAppointment(appointmentsList, "Jane Smith", "555-5678", "14:30", ahp1);
+
+        printExistingAppointments(appointmentsList);
+
+        cancelBooking(appointmentsList, "555-5678");
+
+        printExistingAppointments(appointmentsList);
+
+        System.out.println("------------------------------");
+    }
+
+    public static void createAppointment(ArrayList<Appointment> list, String patientName, String mobilePhone, String timeSlot, HealthProfessional doctor) {
+        Appointment newAppointment = new Appointment(patientName, mobilePhone, timeSlot, doctor);
+        list.add(newAppointment);
+    }
+
+    public static void printExistingAppointments(ArrayList<Appointment> list) {
+        if (list.isEmpty()) {
+            System.out.println("No existing appointments.");
+        } else {
+            for (Appointment appointment : list) {
+                appointment.printDetails();
+                System.out.println();
+            }
+        }
+    }
+
+    public static void cancelBooking(ArrayList<Appointment> list, String mobilePhone) {
+        boolean found = false;
+        for (Appointment appointment : list) {
+            if (appointment.mobilePhone.equals(mobilePhone)) {
+                list.remove(appointment);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            System.out.println("Mobile phone not found in existing appointments.");
+        }
+    }
+}

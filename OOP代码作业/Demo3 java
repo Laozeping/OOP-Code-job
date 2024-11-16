@@ -1,0 +1,22 @@
+// MainApp.java
+
+import java.util.ArrayList;
+
+public class MainApp {
+    public static void main(String[] args) {
+        // Part 3 - Using classes and objects
+        System.out.println("// Part 3 – Using classes and objects");
+
+        GeneralPractitioner gp1 = new GeneralPractitioner(1, "Dr. Smith", "General Physician", "Family Medicine");
+        GeneralPractitioner gp2 = new GeneralPractitioner(2, "Dr. Johnson", "Primary Care Provider", "Internal Medicine");
+        AnotherHealthProfessional ahp1 = new AnotherHealthProfessional(3, "Dr. Patel", "Specialist Dietitian", "Nutrition");
+        AnotherHealthProfessional ahp2 = new AnotherHealthProfessional(4, "Dr. Lee", "Clinical Psychologist", "Mental Health");
+
+        gp1.printDetails();
+        gp2.printDetails();
+        ahp1.printDetails();
+        ahp2.printDetails();
+
+        System.out.println("------------------------------");
+    }
+}
