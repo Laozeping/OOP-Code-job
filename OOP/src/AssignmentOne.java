@@ -1,40 +1,39 @@
+
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class AssignmentOne {
-
     public static void main(String[] args) {
+        List<HealthProfessional> doctors = new ArrayList<>();
         List<Appointment> appointments = new ArrayList<>();
 
-        appointments.add(new Appointment("Alice", "123-456-7890", LocalTime.of(10, 0), new GeneralPractitioner(1, "Jane Doe", "Dr.", "Cardiology", "General Practitioner")));
-        appointments.add(new Appointment("Bob", "987-654-3210", LocalTime.of(14, 30), new OrthopedicPractitioner(4, "Bob Williams", "Mr.", "Physiotherapy", "Orthopedic Practitioner")));
-        appointments.add(new Appointment("Charlie", "555-123-4567", LocalTime.of(11, 0), new GeneralPractitioner(2, "John Smith", "Dr.", "Pediatrics", "General Practitioner")));
-        appointments.add(new Appointment("David", "111-222-3333", LocalTime.of(9, 0), new OrthopedicPractitioner(5, "Eva Brown", "Ms.", "Joint Replacement", "Orthopedic Practitioner")));
-        appointments.add(new Appointment("Eve", "777-888-9999", LocalTime.of(13, 0), new GeneralPractitioner(3, "Alex Johnson", "Dr.", "Cardiology", "General Practitioner")));
+        // 添加医生信息
+        doctors.add(new GeneralPractitioner(1, "Jane Doe", "Dr.", "Cardiology"));
+        doctors.add(new OrthopedicPractitioner(4, "Bob Williams", "Mr.", "Physiotherapy"));
+        doctors.add(new GeneralPractitioner(2, "John Smith", "Dr.", "Pediatrics"));
+        doctors.add(new OrthopedicPractitioner(5, "Eva Brown", "Ms.", "Joint Replacement"));
+        doctors.add(new GeneralPractitioner(3, "Alex Johnson", "Dr.", "Cardiology"));
 
+        // 添加预约信息
+        appointments.add(new Appointment("Alice", "123-456-7890", LocalTime.of(10, 0), doctors.get(0)));
+        appointments.add(new Appointment("Bob", "987-654-3210", LocalTime.of(14, 30), doctors.get(1)));
+        appointments.add(new Appointment("Charlie", "555-123-4567", LocalTime.of(11, 0), doctors.get(2)));
+        appointments.add(new Appointment("David", "111-222-3333", LocalTime.of(9, 0), doctors.get(3)));
+        appointments.add(new Appointment("Eve", "777-888-9999", LocalTime.of(13, 0), doctors.get(4)));
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Welcome to the medical appointment system. To access the doctor's basic information, please press 1. To access patient information, please press 2. To access the current patient information, please press 3. To access the current appointment list, please press 4. To cancel the current appointment, please press 5.");
+        System.out.println("欢迎使用医疗预约系统。要访问医生的基本信息，请按1。要访问患者信息，请按2。要访问当前患者信息，请按3。要访问当前预约列表，请按4。要取消当前预约，请按5。");
+        System.out.print("请输入您的选择 (1-5):例如：java AssignmentOne 1");
 
-        int userChoice;
-        if (args.length > 0) {
-            try {
-                userChoice = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                System.out.println("无效的命令行参数。");
-                return;
-            }
-        } else {
-            System.out.println("请使用命令行参数运行程序，例如：java AssignmentOne 1");
-            return;
-        }
+        int userChoice = scanner.nextInt();
+        scanner.nextLine(); // Consume newline left-over
 
         switch (userChoice) {
             case 1:
-                displayDoctorInfo(appointments);
+                displayDoctorInfo(doctors);
                 break;
             case 2:
                 displayPatientInfo(appointments);
@@ -54,18 +53,18 @@ public class AssignmentOne {
         scanner.close();
     }
 
-    private static void displayDoctorInfo(List<Appointment> appointments) {
+    private static void displayDoctorInfo(List<HealthProfessional> doctors) {
         System.out.println("全科医生基本信息：");
-        for (Appointment appointment : appointments) {
-            if (appointment.getDoctor() instanceof GeneralPractitioner) {
-                ((GeneralPractitioner) appointment.getDoctor()).printDetails();
+        for (HealthProfessional doctor : doctors) {
+            if (doctor instanceof GeneralPractitioner) {
+                ((GeneralPractitioner) doctor).printDetails();
             }
         }
         System.out.println("------------------------------");
         System.out.println("骨科医生基本信息：");
-        for (Appointment appointment : appointments) {
-            if (appointment.getDoctor() instanceof OrthopedicPractitioner) {
-                ((OrthopedicPractitioner) appointment.getDoctor()).printDetails();
+        for (HealthProfessional doctor : doctors) {
+            if (doctor instanceof OrthopedicPractitioner) {
+                ((OrthopedicPractitioner) doctor).printDetails();
             }
         }
     }
@@ -90,7 +89,7 @@ public class AssignmentOne {
         }
     }
 
-    private static void  printExistingAppointments(List<Appointment> appointments) {
+    private static void printExistingAppointments(List<Appointment> appointments) {
         if (appointments.isEmpty()) {
             System.out.println("当前没有预约。");
             return;

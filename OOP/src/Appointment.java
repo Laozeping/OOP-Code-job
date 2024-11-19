@@ -1,3 +1,4 @@
+
 import java.time.LocalTime;
 
 public class Appointment {
@@ -13,12 +14,12 @@ public class Appointment {
         this.doctor = doctor;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
     public String getPatientName() {
         return patientName;
+    }
+
+    public String getMobile() {
+        return mobile;
     }
 
     public LocalTime getTime() {
