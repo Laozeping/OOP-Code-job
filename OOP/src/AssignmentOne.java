@@ -8,16 +8,16 @@ public class AssignmentOne {
     public static void main(String[] args) {
         List<Appointment> appointments = new ArrayList<>();
 
-        // Example Appointments
         appointments.add(new Appointment("Alice", "123-456-7890", LocalTime.of(10, 0), new GeneralPractitioner(1, "Jane Doe", "Dr.", "Cardiology", "General Practitioner")));
         appointments.add(new Appointment("Bob", "987-654-3210", LocalTime.of(14, 30), new OrthopedicPractitioner(4, "Bob Williams", "Mr.", "Physiotherapy", "Orthopedic Practitioner")));
         appointments.add(new Appointment("Charlie", "555-123-4567", LocalTime.of(11, 0), new GeneralPractitioner(2, "John Smith", "Dr.", "Pediatrics", "General Practitioner")));
         appointments.add(new Appointment("David", "111-222-3333", LocalTime.of(9, 0), new OrthopedicPractitioner(5, "Eva Brown", "Ms.", "Joint Replacement", "Orthopedic Practitioner")));
+        appointments.add(new Appointment("Eve", "777-888-9999", LocalTime.of(13, 0), new GeneralPractitioner(3, "Alex Johnson", "Dr.", "Cardiology", "General Practitioner")));
+
 
         Scanner scanner = new Scanner(System.in);
 
-        // Print welcome message
-        System.out.println("欢迎来到医疗预约系统，想进入医生基本信息查询请按1，想查询患者信息请按2，想查询当前患者信息请按3，想查询当前预约名单请按4，想取消当前预约请按5");
+        System.out.println("Welcome to the medical appointment system. To access the doctor's basic information, please press 1. To access patient information, please press 2. To access the current patient information, please press 3. To access the current appointment list, please press 4. To cancel the current appointment, please press 5.");
 
         int userChoice;
         if (args.length > 0) {
@@ -43,10 +43,10 @@ public class AssignmentOne {
                 displayCurrentPatientInfo(appointments);
                 break;
             case 4:
-                displayExistingAppointments(appointments);
+                printExistingAppointments(appointments);
                 break;
             case 5:
-                cancelPatientAppointment(appointments, scanner);
+                cancelBooking(appointments, scanner);
                 break;
             default:
                 System.out.println("无效的选择。");
@@ -90,23 +90,22 @@ public class AssignmentOne {
         }
     }
 
-    private static void displayExistingAppointments(List<Appointment> appointments) {
+    private static void  printExistingAppointments(List<Appointment> appointments) {
         if (appointments.isEmpty()) {
             System.out.println("当前没有预约。");
             return;
         }
         for (Appointment appointment : appointments) {
             appointment.printDetails();
-            System.out.println("--------------------");
         }
     }
 
-    private static void cancelPatientAppointment(List<Appointment> appointments, Scanner scanner) {
+    private static void cancelBooking(List<Appointment> appointments, Scanner scanner) {
         System.out.println("请输入您要删除的患者的手机号:");
         String patientMobile = scanner.nextLine();
         appointments.removeIf(appointment -> appointment.getMobile().equals(patientMobile)); // Efficient removal
 
         System.out.println("已成功删除" + patientMobile + "号码的患者，接下来是删除后的预约名单：");
-        displayExistingAppointments(appointments);
+        printExistingAppointments(appointments);
     }
 }
