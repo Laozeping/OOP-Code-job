@@ -26,8 +26,13 @@ public class AssignmentOne {
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("欢迎使用医疗预约系统。要访问医生的基本信息，请按1。要访问患者信息，请按2。要访问当前患者信息，请按3。要访问当前预约列表，请按4。要取消当前预约，请按5。");
-        System.out.print("请输入您的选择 (1，2，3，4，5):例如：java AssignmentOne 1");
+        System.out.println("Welcome to use the medical appointment system.");
+        System.out.println("To access the doctor's basic information, please press 1.");
+        System.out.println("To access patient information, please press 2.");
+        System.out.println("To access the current patient information, please press 3.");
+        System.out.println("To access the current appointment list, please press 4.");
+        System.out.println("To cancel your current appointment, please press 5.");
+        System.out.print("Please enter your selection.(1，2，3，4，5): 例如：java AssignmentOne 1");
 
         int userChoice = scanner.nextInt();
         scanner.nextLine(); // Consume newline left-over
@@ -49,20 +54,20 @@ public class AssignmentOne {
                 cancelBooking(appointments, scanner);
                 break;
             default:
-                System.out.println("无效的选择。");
+                System.out.println("An invalid choice.");
         }
         scanner.close();
     }
 
     private static void displayDoctorInfo(List<HealthProfessional> doctors) {
-        System.out.println("全科医生基本信息：");
+        System.out.println("General Practitioner Basic Information:");
         for (HealthProfessional doctor : doctors) {
             if (doctor instanceof GeneralPractitioner) {
                 ((GeneralPractitioner) doctor).printDetails();
             }
         }
         System.out.println("------------------------------");
-        System.out.println("骨科医生基本信息：");
+        System.out.println("Basic Information of Orthopedic Surgeon:");
         for (HealthProfessional doctor : doctors) {
             if (doctor instanceof OrthopedicPractitioner) {
                 ((OrthopedicPractitioner) doctor).printDetails();
@@ -71,7 +76,7 @@ public class AssignmentOne {
     }
 
     private static void displayPatientInfo(List<Appointment> appointments) {
-        System.out.println("患者基本信息：");
+        System.out.println("Patient Basic Information:");
         for (Appointment appointment : appointments) {
             System.out.println("Patient Name: " + appointment.getPatientName());
             System.out.println("Mobile: " + appointment.getMobile());
@@ -80,7 +85,7 @@ public class AssignmentOne {
     }
 
     private static void displayCurrentPatientInfo(List<Appointment> appointments) {
-        System.out.println("当前患者信息：");
+        System.out.println("Current Patient Information:");
         for (Appointment appointment : appointments) {
             System.out.println("Patient Name: " + appointment.getPatientName());
             System.out.println("Mobile: " + appointment.getMobile());
@@ -92,7 +97,7 @@ public class AssignmentOne {
 
     private static void printExistingAppointments(List<Appointment> appointments) {
         if (appointments.isEmpty()) {
-            System.out.println("当前没有预约。");
+            System.out.println("There are no appointments at the moment.");
             return;
         }
         for (Appointment appointment : appointments) {
@@ -101,11 +106,11 @@ public class AssignmentOne {
     }
 
     private static void cancelBooking(List<Appointment> appointments, Scanner scanner) {
-        System.out.println("请输入您要删除的患者的手机号:");
+        System.out.println("Please enter the mobile number of the patient you want to delete:");
         String patientMobile = scanner.nextLine();
         appointments.removeIf(appointment -> appointment.getMobile().equals(patientMobile)); // Efficient removal
 
-        System.out.println("已成功删除" + patientMobile + "号码的患者，接下来是删除后的预约名单：");
+        System.out.println("The deletion has been successfully completed." + patientMobile + "The patient's number, followed by the appointment list after deletion:");
         printExistingAppointments(appointments);
     }
 }
